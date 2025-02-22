@@ -5,14 +5,15 @@ import ProductHeader from './components/ProductHeader';
 import ProductDetails from './components/ProductDetails';
 
 interface ProductPageProps {
-    params: Promise<{ slug: string; productId: string }>
+    params: Promise<{ slug: string; productid: string }>
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
 
-    const { slug, productId } = await params
-    const product = await db.product.findFirst({ where: { id: productId }, 
-    include: {
+    const { slug, productid } = await params
+    const product = await db.product.findFirst({
+        where: { id: productid },
+        include: {
             restaurant: {
                 select: {
                     name: true,
@@ -20,7 +21,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     slug: true
                 }
             }
-        } 
+        }
     })
 
     if (!product) {
@@ -30,12 +31,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
         return notFound()
     }
 
-    return ( 
+    return (
         <>
-           <div className='flex flex-col h-full'>
-           <ProductHeader product={product} /> 
-           <ProductDetails product={product} />
-           </div>
+            <div className='flex flex-col h-full'>
+                <ProductHeader product={product} />
+                <ProductDetails product={product} />
+            </div>
         </>
     )
 }

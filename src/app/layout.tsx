@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "./[slug]/menu/contexts/cart";
 
 
 const poppins = Poppins({
@@ -24,7 +25,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased`}
       >
+        <CartProvider>
         {children}
+        </CartProvider>
       </body>
     </html>
   );
